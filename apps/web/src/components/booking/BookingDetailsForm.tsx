@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Clock, Users, User, Mail, Phone, X } from 'lucide-react';
+import { Clock, Users, User, Mail, Phone, X, Briefcase } from 'lucide-react';
 
 export interface BookingFormData {
   firstName: string;
@@ -8,6 +8,7 @@ export interface BookingFormData {
   email: string;
   duration: number;
   peopleCount: number;
+  purpose: string;
 }
 
 interface BookingDetailsFormProps {
@@ -154,6 +155,33 @@ export function BookingDetailsForm({ data, onChange }: BookingDetailsFormProps) 
           min="1"
           className={inputClass}
         />
+      </div>
+
+      <div className={inputWrapperClass}>
+        <Briefcase className={iconClass} />
+        <select
+          name="purpose"
+          value={data.purpose}
+          onChange={handleChange}
+          className={`${inputClass} appearance-none cursor-pointer`}
+        >
+          <option value="PODCAST_RECORDING">Podcast Recording</option>
+          <option value="VIDEO_PODCAST">Video Podcast</option>
+          <option value="PHOTOGRAPHY">Photography</option>
+          <option value="VIDEOGRAPHY">Videography</option>
+          <option value="MUSIC_VIDEO">Music Video</option>
+          <option value="DANCE_VIDEO">Dance Video</option>
+          <option value="LIVE_STREAMING">Live Streaming</option>
+          <option value="COMMUNITY_EVENT">Community Event</option>
+          <option value="CORPORATE_MEETING">Corporate Meeting</option>
+          <option value="WORKSHOP">Workshop</option>
+          <option value="OTHER">Other Purpose</option>
+        </select>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500 group-focus-within:text-[#d946ef] transition-colors">
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
       </div>
     </div>
   );

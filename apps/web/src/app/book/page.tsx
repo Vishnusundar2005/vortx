@@ -26,6 +26,7 @@ export default function BookPage() {
     email: '',
     duration: 2,
     peopleCount: 1,
+    purpose: 'PODCAST_RECORDING',
   });
 
   const [availableSlots, setAvailableSlots] = useState<AvailableSlot[]>([]);
@@ -74,7 +75,7 @@ export default function BookPage() {
       phone: formData.phone,
       email: formData.email,
       peopleCount: formData.peopleCount,
-      purpose: 'OTHER', // Default or derived
+      purpose: formData.purpose,
       bookingDate: format(bookingDate, 'yyyy-MM-dd'),
       startTime: selectedSlot.startTime,
       durationHours: formData.duration,
