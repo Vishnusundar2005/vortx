@@ -2,6 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import { CheckCircle2, Lock } from 'lucide-react';
 import { AvailableSlot } from '@/services/booking.service';
+import { formatTime12h } from '@/lib/utils';
 
 interface StickySummaryProps {
   date: Date;
@@ -28,7 +29,7 @@ export function StickySummary({ date, slot, duration, loading, onConfirm }: Stic
           <span className="text-[10px] font-bold tracking-widest text-zinc-400">DATE & TIME</span>
           <div className="text-right flex flex-col items-end">
             <span className="text-sm font-semibold text-white">
-              {slot ? `${slot.startTime} - ${slot.endTime}` : '--:--'}
+              {slot ? `${formatTime12h(slot.startTime)} - ${formatTime12h(slot.endTime)}` : '--:--'}
             </span>
             <span className="text-[10px] text-[#d946ef] font-semibold mt-1">
               {format(date, 'EEEE, MMM do')}

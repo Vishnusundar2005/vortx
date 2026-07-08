@@ -1,4 +1,5 @@
 import { BookingStatusBadge } from './BookingStatusBadge';
+import { formatTime12h } from '@/lib/utils';
 
 interface Props {
   booking: Record<string, string>;
@@ -25,7 +26,7 @@ export function BookingSummaryCard({ booking }: Props) {
         </div>
         <div>
           <p className="text-sm text-zinc-500 mb-1">Time</p>
-          <p className="font-medium text-white">{booking.startTime} - {booking.endTime}</p>
+          <p className="font-medium text-white">{formatTime12h(booking.startTime)} - {formatTime12h(booking.endTime)}</p>
         </div>
       </div>
     </div>

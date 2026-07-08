@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 import { HorizontalDateSelector } from '@/components/booking/HorizontalDateSelector';
 import { TimeSlotGrid } from '@/components/booking/TimeSlotGrid';
 import { BookingDetailsForm, BookingFormData } from '@/components/booking/BookingDetailsForm';
@@ -40,7 +41,7 @@ export default function BookPage() {
 
     // Assume the backend is running and we can fetch slots
     bookingService
-      .getAvailability({ date: bookingDate.toISOString(), duration: formData.duration || 1 })
+      .getAvailability({ date: format(bookingDate, 'yyyy-MM-dd'), duration: formData.duration || 1 })
       .then((data) => {
         if (mounted) {
           setAvailableSlots(data);
@@ -74,7 +75,7 @@ export default function BookPage() {
       email: formData.email,
       peopleCount: formData.peopleCount,
       purpose: 'OTHER', // Default or derived
-      bookingDate: bookingDate.toISOString(),
+      bookingDate: format(bookingDate, 'yyyy-MM-dd'),
       startTime: selectedSlot.startTime,
       durationHours: formData.duration,
     };

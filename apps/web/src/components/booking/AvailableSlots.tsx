@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { AvailableSlot, bookingService } from '@/services/booking.service';
 import { ArrowLeft, Clock } from 'lucide-react';
+import { formatTime12h } from '@/lib/utils';
+import { format } from 'date-fns';
 
 interface Props {
   date: Date;
@@ -20,7 +22,7 @@ export function AvailableSlots({ date, duration, onSelect, onBack }: Props) {
     setLoading(true);
 
     bookingService
-      .getAvailability({ date: date.toISOString(), duration })
+      .getAvailability({ date: format(date, 'yyyy-MM-dd'), duration })
       .then((data) => {
         if (mounted) {
           setSlots(data);
@@ -72,8 +74,8 @@ export function AvailableSlots({ date, duration, onSelect, onBack }: Props) {
               onClick={() => onSelect(slot)}
               className="flex flex-col items-center justify-center p-3 rounded-lg border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 hover:border-blue-500 transition"
             >
-              <span className="font-medium text-white">{slot.startTime}</span>
-              <span className="text-xs text-zinc-500 mt-1">to {slot.endTime}</span>
+              <span className="font-medium text-white">{formatTime12h(slot.startTime)}</span>
+              <span className="text-xs text-zinc-500 mt-1">to {formatTime12h(slot.endTime)}</span>
             </button>
           ))}
         </div>

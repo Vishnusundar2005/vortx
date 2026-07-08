@@ -1,5 +1,6 @@
 import React from 'react';
 import { AvailableSlot } from '@/services/booking.service';
+import { formatTime12h } from '@/lib/utils';
 
 interface TimeSlotGridProps {
   slots: AvailableSlot[];
@@ -43,7 +44,7 @@ export function TimeSlotGrid({ slots, loading, selectedSlot, onSelect }: TimeSlo
             }`}
           >
             <span className="text-sm font-bold tracking-wide">
-              {slot.startTime}
+              {formatTime12h(slot.startTime)}
             </span>
             <span
               className={`text-[9px] mt-1 tracking-widest font-semibold ${
