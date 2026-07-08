@@ -11,8 +11,35 @@ async function bootstrap() {
 
   // Security
   app.use(helmet());
+  
+  const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'http://localhost:3000',
+    'http://localhost:3003',
+  ]
+    .filter(Boolean)
+    .map((url) => url!.replace(/\/$/, ''));
+
   app.enableCors({
-    origin: [process.env.FRONTEND_URL || 'http://localhost:3000', 'http://localhost:3003'],
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void,
+    ) => {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const isAllowed = allowedOrigins.some((allowed) => allowed === origin);
+      const isVercelPreview = origin.endsWith('.vercel.app');
+      const isLocalhost = origin.startsWith('http://localhost:');
+
+      if (isAllowed || isVercelPreview || isLocalhost) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   });
 

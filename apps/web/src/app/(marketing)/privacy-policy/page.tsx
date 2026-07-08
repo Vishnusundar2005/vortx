@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
         <SectionTitle title="Privacy Policy" alignment="left" />
         
         <div className="prose prose-invert prose-zinc max-w-none">
-          <p className="text-zinc-400">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-zinc-400">Last updated: July 8, 2026</p>
           
           <h3 className="text-white font-bold mt-8 mb-4">1. Information We Collect</h3>
           <p className="text-zinc-400">

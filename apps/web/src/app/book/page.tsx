@@ -10,8 +10,13 @@ import { AvailableSlot, bookingService, CreateBookingData } from '@/services/boo
 import { Navbar } from '@/components/marketing/Navbar';
 
 export default function BookPage() {
+  const [mounted, setMounted] = useState(false);
   const [bookingDate, setBookingDate] = useState<Date>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const [formData, setFormData] = useState<BookingFormData>({
     firstName: '',
@@ -93,6 +98,28 @@ export default function BookPage() {
       <h3 className="text-xl font-bold text-white tracking-tight">{title}</h3>
     </div>
   );
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center pt-32 pb-12 px-4">
+        <Navbar />
+        <div className="animate-pulse space-y-8 w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+          <div className="space-y-3">
+            <div className="h-10 bg-zinc-800/50 rounded w-1/3"></div>
+            <div className="h-4 bg-zinc-800/50 rounded w-1/4"></div>
+          </div>
+          <div className="h-24 bg-zinc-800/50 rounded-2xl"></div>
+          <div className="flex flex-col lg:flex-row gap-10">
+            <div className="flex-1 space-y-6">
+              <div className="h-32 bg-zinc-800/50 rounded-2xl"></div>
+              <div className="h-48 bg-zinc-800/50 rounded-2xl"></div>
+            </div>
+            <div className="w-full lg:w-80 h-64 bg-zinc-800/50 rounded-2xl"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (bookingResult) {
     return (
